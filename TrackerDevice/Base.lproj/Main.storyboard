@@ -18,6 +18,9 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4Ae-j1-h0i">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="JrF-1L-kmw"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -29,7 +32,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4Ae-j1-h0i" secondAttribute="bottom" id="UVq-z6-hXm"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="5dg-SW-hG2"/>
+                    <navigationItem key="navigationItem" id="5dg-SW-hG2">
+                        <barButtonItem key="leftBarButtonItem" title="Locations" id="rhy-ER-LGJ"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="4Ae-j1-h0i" id="uDe-8y-ubb"/>
                     </connections>

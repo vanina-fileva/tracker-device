@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 typealias GetDevicesClosure = (_ devices: [Device]) -> ()
 

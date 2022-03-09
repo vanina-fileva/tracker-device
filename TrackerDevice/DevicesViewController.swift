@@ -14,12 +14,17 @@ class DevicesViewController: UIViewController {
     
     var devices: [Device]? {
         didSet {
-            DispatchQueue.main.async {
-                //todo: show on map
+            DispatchQueue.main.async { [weak self] in
+                guard let devices = self?.devices else {
+                    return
+                }
+                for device in devices {
+                    self?.addPin(for: device)
+                }
             }
         }
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getDevices()
@@ -30,5 +35,14 @@ class DevicesViewController: UIViewController {
             self?.devices = devices
         }
     }
+    
+    private func addPin(for device: Device) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = device.coordinate
+        annotation.title = "\(device.barrierId ?? "NA") \(device.fCntUp.description)"
+        annotation.subtitle = "\(device.battery)%"
+        mapView.addAnnotation(annotation)
+    }
 }
+
 

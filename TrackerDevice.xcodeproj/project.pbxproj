@@ -15,6 +15,7 @@
 		2B111E4827D76A3A00A578CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B111E4627D76A3A00A578CD /* LaunchScreen.storyboard */; };
 		2B111E5027D76B7600A578CD /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B111E4F27D76B7600A578CD /* Device.swift */; };
 		2B111E5227D76BA900A578CD /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B111E5127D76BA900A578CD /* DataManager.swift */; };
+		2B111E5527D80A9F00A578CD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B111E5427D80A9F00A578CD /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		2B111E4927D76A3A00A578CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B111E4F27D76B7600A578CD /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		2B111E5127D76BA900A578CD /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		2B111E5427D80A9F00A578CD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B111E5527D80A9F00A578CD /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +49,7 @@
 			children = (
 				2B111E3A27D76A3800A578CD /* TrackerDevice */,
 				2B111E3927D76A3800A578CD /* Products */,
+				2B111E5327D80A9F00A578CD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,15 +66,23 @@
 			children = (
 				2B111E3B27D76A3800A578CD /* AppDelegate.swift */,
 				2B111E3D27D76A3800A578CD /* SceneDelegate.swift */,
+				2B111E5127D76BA900A578CD /* DataManager.swift */,
+				2B111E4F27D76B7600A578CD /* Device.swift */,
 				2B111E3F27D76A3800A578CD /* DevicesViewController.swift */,
 				2B111E4127D76A3900A578CD /* Main.storyboard */,
-				2B111E4F27D76B7600A578CD /* Device.swift */,
-				2B111E5127D76BA900A578CD /* DataManager.swift */,
 				2B111E4427D76A3A00A578CD /* Assets.xcassets */,
 				2B111E4627D76A3A00A578CD /* LaunchScreen.storyboard */,
 				2B111E4927D76A3A00A578CD /* Info.plist */,
 			);
 			path = TrackerDevice;
+			sourceTree = "<group>";
+		};
+		2B111E5327D80A9F00A578CD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2B111E5427D80A9F00A578CD /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
