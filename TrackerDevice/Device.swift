@@ -12,7 +12,7 @@ class Device {
     let barrierId: String?
     let battery: Int
     let fCntUp: Int
-    let coordinate: CLLocationCoordinate2D
+    var coordinate: CLLocationCoordinate2D
 
     init?(dictionary: [String: Any]) {
         guard let lastData = dictionary["lastData"] as? [String: Any],

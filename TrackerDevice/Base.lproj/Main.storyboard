@@ -32,9 +32,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4Ae-j1-h0i" secondAttribute="bottom" id="UVq-z6-hXm"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="5dg-SW-hG2">
-                        <barButtonItem key="leftBarButtonItem" title="Locations" id="rhy-ER-LGJ"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="5dg-SW-hG2"/>
                     <connections>
                         <outlet property="mapView" destination="4Ae-j1-h0i" id="uDe-8y-ubb"/>
                     </connections>
