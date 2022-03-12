@@ -7,10 +7,13 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 class DevicesViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
+    
+    lazy var locationManager = CLLocationManager()
     
     var devices: [Device]? {
         didSet {
@@ -27,6 +30,36 @@ class DevicesViewController: UIViewController {
         super.viewDidLoad()
         getDevices()
         mapView.delegate = self
+    }
+    
+    @IBAction func showUserLocation(_ sender: Any) {
+        showUserLocation()
+    }
+    
+    @IBAction func showDevices(_ sender: Any) {
+        locationManager.stopUpdatingLocation()
+        guard let devices = devices else {
+            return
+        }
+        show(devices)
+    }
+}
+
+extension DevicesViewController: MKMapViewDelegate {
+    
+    internal func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is MKPointAnnotation else {
+            return nil
+        }
+        let identifier = "Annotation"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        if annotationView == nil {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView!.canShowCallout = true
+        } else {
+            annotationView!.annotation = annotation
+        }
+        return annotationView
     }
     
     private func getDevices() {
@@ -57,9 +90,9 @@ class DevicesViewController: UIViewController {
         }
         
         guard let minLat = minLat, let maxLat = maxLat,
-        let minLng = minLng, let maxLng = maxLng else {
-            return
-        }
+              let minLng = minLng, let maxLng = maxLng else {
+                  return
+              }
         zoomTo(minLat: minLat, maxLat: maxLat, minLng: minLng, maxLng: maxLng)
     }
     
@@ -77,30 +110,56 @@ class DevicesViewController: UIViewController {
                         maxLng: CLLocationDegrees) {
         let span = MKCoordinateSpan(latitudeDelta: (maxLat - minLat) * 1.15,
                                     longitudeDelta: (maxLng - minLng) * 1.15)
-        let location = CLLocationCoordinate2D(latitude: (maxLat + minLat) / 2,
+        let coordinate = CLLocationCoordinate2D(latitude: (maxLat + minLat) / 2,
                                               longitude: (maxLng + minLng) / 2)
-        let region = MKCoordinateRegion(center: location, span: span)
-        mapView.setRegion(region, animated: false)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView.setRegion(region, animated: true)
     }
 }
 
-extension DevicesViewController: MKMapViewDelegate {
+extension DevicesViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didupdateLocations locations: [CLLocation]) {
+        centerOnLocationCoordinate(of: manager)
+    }
     
-    internal func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard annotation is MKPointAnnotation else {
-            return nil
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            startUpdatingUserLocation()
+        default:
+            break
         }
-        let identifier = "Annotation"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-        if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView!.canShowCallout = true
-        } else {
-            annotationView!.annotation = annotation
+    }
+    
+    private func showUserLocation() {
+        mapView.showsUserLocation = true
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            startUpdatingUserLocation()
         }
-        return annotationView
+    }
+    
+    func startUpdatingUserLocation() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        centerOnLocationCoordinate(of: locationManager)
+    }
+    
+    private func center(on coordinate: CLLocationCoordinate2D) {
+        var region = mapView.region
+        region.center = coordinate
+        mapView.setRegion(region, animated: true)
+    }
+    
+    private func centerOnLocationCoordinate(of manager: CLLocationManager) {
+        if let coordinate = manager.location?.coordinate {
+            center(on: coordinate)
+        }
     }
 }
+
 
 
 

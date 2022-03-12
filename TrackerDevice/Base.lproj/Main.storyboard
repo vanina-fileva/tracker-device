@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4Ae-j1-h0i">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Ae-j1-h0i">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="JrF-1L-kmw"/>
@@ -32,7 +32,18 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4Ae-j1-h0i" secondAttribute="bottom" id="UVq-z6-hXm"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="5dg-SW-hG2"/>
+                    <navigationItem key="navigationItem" id="5dg-SW-hG2">
+                        <barButtonItem key="leftBarButtonItem" title="Devices" id="9Vb-u6-oT8">
+                            <connections>
+                                <action selector="showDevices:" destination="BYZ-38-t0r" id="Le7-rV-59m"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="User" id="gmn-s3-qvE">
+                            <connections>
+                                <action selector="showUserLocation:" destination="BYZ-38-t0r" id="J5i-R5-3Jq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="4Ae-j1-h0i" id="uDe-8y-ubb"/>
                     </connections>
